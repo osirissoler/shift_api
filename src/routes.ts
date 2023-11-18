@@ -7,7 +7,8 @@ import authRouter from './routes/auth.routes';
 import specialistsRouter from './routes/specialist.routes';
 import servicesRouter from './routes/services.routes';
 import galleryRouter from './routes/gallery.routes';
-
+import reviewsRouter from './routes/reviews.routes';
+reviewsRouter
 
 
 const router: Router = Router()
@@ -20,6 +21,7 @@ router.use('/auth', authRouter)
 router.use('/specialists', specialistsRouter)
 router.use('/services', servicesRouter)
 router.use('/gallery', galleryRouter)
-galleryRouter
+router.use('/reviews', reviewsRouter)
+
 
 export default router;
