@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 require('dotenv').config();
 const cors = require('cors');
 const { dbConnection } = require('./database/config')
+const path = require('path');
 // import * as morgan from 'morgan';
 
 const app: express.Application = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cors())
 
 // app.use(morgan.default('dev'))
+app.use(express.static(path.join(__dirname, 'public')));
 
 import router from './routes'
 
