@@ -3,13 +3,15 @@ import mongoose, { Schema, model, Types } from "mongoose";
 export interface services extends mongoose.Document {
     name: string;
     price: Number;
+    hours:Number;
+    minutes:Number;
     time: string;
     isActive: boolean;
     isDeleted: boolean;
     created_at: string;
     updated_at: string;
     specialists: Types.ObjectId;
-    description:string
+    description:string;
 }
 
 const servicesSchema = new Schema({
@@ -21,6 +23,16 @@ const servicesSchema = new Schema({
         type: Number,
         require: false,
         default: 0.00
+    },
+    hours: {
+        type: Number,
+        require: false,
+        default: 0
+    },
+    minutes: {
+        type: Number,
+        require: false,
+        default: 0
     },
     time: {
         type: String,
