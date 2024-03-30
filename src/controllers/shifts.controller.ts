@@ -62,14 +62,12 @@ const verifyShifts = async (req: Request, res: Response) => {
     try {
         const { ...data } = req.body
         const query = {
-            specialists: new Types.ObjectId(data.specialists),
+            // specialists: new Types.ObjectId(data.specialists),
             isDeleted: false,
             isActive: true,
             user: new Types.ObjectId(data.user),
             typeBusiness:new Types.ObjectId(data.typeBusiness)
         }
-
-        console.log(query)
 
         const shifts = await Shifts.findOne(query)
             .populate({ path: 'specialists', populate: { path: 'business', } })
@@ -86,7 +84,7 @@ const verifyShifts = async (req: Request, res: Response) => {
         res.status(200).send({
             ok: true,
             shifts,
-            mensaje: "no hay ticket creado",
+            mensaje: "no hay ticket creado con este tipo de negocio",
             message: "there are no tickect created"
         })
 
@@ -147,6 +145,31 @@ const getShiftsNumber = async (req: Request, res: Response) => {
 }
 
 
+const deleteShifts = async (req: Request, res: Response)=>{
+    try {
+        const { shifts_id, } = req.params
+        await Shifts.findByIdAndUpdate(
+            shifts_id,
+            { isDeleted: true },
+            { new: true }
+          );
+
+        res.status(200).send({
+            ok: true,
+           
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            error,
+            mensaje: "¡Ups! Algo salió mal",
+            message: "Ups! Something went wrong",
+        });
+    }
+}
+
+
 // const getSpecialistsByBusiness = async (req: Request, res: Response) => {
 //     try {
 //       const {id} = req.params
@@ -170,4 +193,4 @@ const getShiftsNumber = async (req: Request, res: Response) => {
 //     }
 //   }
 
-export { createShifts, getShiftsNumber, verifyShifts }
+export { createShifts, getShiftsNumber, verifyShifts, deleteShifts }

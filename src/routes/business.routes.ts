@@ -1,26 +1,41 @@
-import * as business from '../controllers/business.controller'
+import * as business from "../controllers/business.controller";
 
-const { check } = require('express-validator');
-import express = require('express');
+const { check } = require("express-validator");
+import express = require("express");
 
 const businessRouter: express.Router = express.Router();
 
-businessRouter.post('/createTypeBusiness', [
-    check('name', 'the name is required').not().isEmpty(),
-    check('code', 'the code is required').not().isEmpty(),
-], business.createTypeBusiness
-)
+import * as token from "../middlewares/validate-jwt";
 
-businessRouter.post('/createBusiness', [
-    check('name', 'the name is required').not().isEmpty(),
-    check('code', 'the code is required').not().isEmpty(),
-], business.createBusiness
-)
+businessRouter.post(
+  "/createTypeBusiness",
+  [
+    check("name", "the name is required").not().isEmpty(),
+    check("code", "the code is required").not().isEmpty(),
+  ],
+  business.createTypeBusiness
+);
 
-businessRouter.get('/getTypeBusiness', business.getTypeBusiness
-)
+businessRouter.post(
+  "/createBusiness",
+  check("name", "the name is required").not().isEmpty(),
+  check("code", "the code is required").not().isEmpty(),
+  check("typeBusiness", "the typeBusiness is required").not().isEmpty(),
+  check("password", "the password is required").not().isEmpty(),
+  check("email", "the email is required").not().isEmpty(),
+  business.createBusiness
+);
 
-businessRouter.get('/getBusinessByTypeBusiness/:id', business.getBusinessByTypeBusiness)
+businessRouter.get(
+  "/getTypeBusiness",
+  [token.validarJWT],
+  business.getTypeBusiness
+);
 
+businessRouter.get(
+  "/getBusinessByTypeBusiness/:id",
+  [token.validarJWT],
+  business.getBusinessByTypeBusiness
+);
 
 export default businessRouter;

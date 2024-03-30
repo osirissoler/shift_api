@@ -22,6 +22,7 @@ export interface specialists extends mongoose.Document {
     code: string;
     title: string;
     coverImg:string;
+    rol: Types.ObjectId;
 }
 
 const specialistsSchema = new Schema({
@@ -123,6 +124,12 @@ const specialistsSchema = new Schema({
         ref: "Business",
         require: true,
         default: '655814972fdc4d68d5a7a849'
+    },
+    rol: {
+        type: Schema.Types.ObjectId,
+        ref: "Roles",
+        require: true,
+        default:'65e29d3ca2d9856327223041'
     },
 
 });

@@ -11,5 +11,19 @@ authRouter.post('/loginApp', [
     ], auth.loginApp
 )
 
+authRouter.post('/loginAppSpecialists', [
+    check('email', 'the email is required').not().isEmpty(),
+    check('password', 'the code is required').not().isEmpty(),
+    ], auth.loginAppSpecialists
+)
+
+authRouter.post('/loginAppbusiness', [
+    check('email', 'the email is required').not().isEmpty(),
+    check('password', 'the code is required').not().isEmpty(),
+    ], auth.loginAppbusiness
+)
+
+
+
 
 export default authRouter;

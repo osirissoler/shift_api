@@ -9,7 +9,9 @@ export interface business extends mongoose.Document {
     isDeleted:boolean;
     address:string;
     about:string
-    // rol: Types.ObjectId;
+    rol: Types.ObjectId;
+    email: string;
+    password: string;
 }
 
 const businessSchema = new Schema({
@@ -49,7 +51,20 @@ const businessSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "TypeBusiness",
         require: true,
-        default:'65580e39fab951aaeedebf6a'
+    },
+    email: {
+        type: String,
+        require: false,
+    },
+    rol: {
+        type: Schema.Types.ObjectId,
+        ref: "Roles",
+        require: true,
+        default:'65e29d1ea2d985632722303f'
+    },
+    password: {
+        type: String,
+        require: true,
     },
 });
 
